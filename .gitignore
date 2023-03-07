@@ -1,0 +1,6 @@
+node_modules
+dist
+
+db.sqlite
+var
+.DS_Store

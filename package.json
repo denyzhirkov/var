@@ -1,0 +1,13 @@
+{
+  "name": "var",
+  "version": "0.0.1",
+  "author": {
+    "name": "Denis Zhirkov",
+    "email": "denyzhirkov@gmail.com"
+  },
+  "description": "CLI tool to store and retrieve key-value variables",
+  "scripts": {
+    "build": "sh build.sh",
+    "build:zip": "sh build.sh && sh zip.sh"
+  }
+}

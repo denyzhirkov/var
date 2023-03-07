@@ -1,0 +1,44 @@
+name: Deno
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build:
+    name: Build ${{ matrix.deno }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        deno: ['1.31.1']
+        os: [macOS-latest]
+
+    steps:
+      - name: Setup repository
+        uses: actions/checkout@v3
+        
+      - name: Get tag
+        run: |
+          VERSION=$(awk '/version/{gsub(/("|",)/,"",$2);print $2}' package.json)
+          echo "TAG=v$VERSION" >> $GITHUB_OUTPUT
+        id: get_tag
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@9db7f66e8e16b5699a514448ce994936c63f0d54
+        with:
+          deno-version: v1.31
+
+      - name: Build and zip
+        run: npm run build:zip
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          name: Release ${{ steps.get_tag.outputs.TAG }}
+          tag: ${{ steps.get_tag.outputs.TAG }}
+          artifacts: "dist/*.zip"
+          body: Fixes and features ;)
+          token: ${{ secrets.GH_TOKEN }}
+
