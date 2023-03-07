@@ -24,7 +24,7 @@ export const helpMessage = () => {
   ${F("flag")}     Modifier to use
   
   Flags:
-  ${F("-v, --version")}     Show run version
+  ${F("-v, --version")}     Show var version
   ${F("-h, --help")}        Show this help message
   ${F("-c, --copy")}        Copy value to clipboard
   ${F("-p, --paste")}       Paste value from clipboard
@@ -37,7 +37,7 @@ export const helpMessage = () => {
   Help:
   ${APP} ${F("-h")}  - Show this help message
   ${APP} ${F("-l")}  - Show list of all keys
-  ${APP} ${F("-v")}  - Show run version
+  ${APP} ${F("-v")}  - Show var version
   ${APP} ${F("-db")} - Database path
 
   Reading:

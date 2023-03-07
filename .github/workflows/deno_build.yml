@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build ${{ matrix.deno }} and ${{ matrix.os }}
+    name: Build deno application on ${{ matrix.deno }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
