@@ -42,3 +42,19 @@ jobs:
           body: Fixes and features ;)
           token: ${{ secrets.GH_TOKEN }}
 
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Upload to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "var-rocks"
+          entrypoint: "./var.rocks/server.ts"
