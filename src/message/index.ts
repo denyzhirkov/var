@@ -42,7 +42,7 @@ export const helpMessage = () => {
 
   Reading:
   ${APP} ${K("key")}   - Read value of key
-  ${APP} ${K("key")} ${F("!")} - Read value of key and copy to clipboard
+  ${APP} ${K("key")} ${F("-c")} - Read value of key and copy to clipboard
 
   Writing:
   ${APP} ${K("key")} ${V("value")}    - Write value to key

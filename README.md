@@ -28,14 +28,14 @@ var -h
 
 **Usage**: **var** *key* [*value* | *flag*]
 
-  key      Key to store
-  value    Value to store
-  flag     Modifier to use
+  **key** - Key to store
+  **value** - Value to store
+  **flag** - Modifier to use
   
   Flags:
   | short | long | descripton |
   |---|---|---|
-  |-v| --version     |Show run version
+  |-v| --version     |Show var version
   |-h| --help        |Show this help message
   |-c| --copy        |Copy value to clipboard
   |-p| --paste       |Paste value from clipboard
@@ -45,28 +45,51 @@ var -h
   |-db| --database   |Database path
   |!  |              | Smart flag
 
-  > Help:
-  **var** *-h*    `Show this help message`
-  **var** *-l*    `Show list of all keys`
-  **var** *-v*    `Show run version`
-  **var** *-db*   `Database path`
+  `Help`:
 
-  > Reading:
-  **var** *key*     `Read value of key`
-  **var** *key* !   `Read value of key and copy to clipboard`
+  **var** *-h*    Show this help message
 
-  > Writing:
-  **var** *key* *value*      `Write value to key`
-  **var** *key* *-p*         `Write value to key from clipboard`
-  **var** *key* *value* *-r*   `Rewrite value to key`
+  **var** *-l*    Show list of all keys
 
-  > Deleting:
-  **var** *key* *-d*   `Delete key`
-  **var** *-d* *-d*    `Clear all keys`
+  **var** *-v*    Show var version
 
-  > Smart:
-  **var** *!*                `Write value from clipboard to a random key`
-  **var** *key* *!*            `Read to clipboard if key exists, else write from clipboard`
-  **var** *key* *value* *!*      `Rewrite value to key`
-  **var** *key *value* *-p* *!*   `Rewrite value to key from clipboard`
+  **var** *-db*   Database path
+
+
+
+  `Reading`:
+
+  **var** *key*     Read value of key
+
+  **var** *key* *-c*   Read value of key and copy to clipboard
+
+
+
+  `Writing`:
+
+  **var** *key* *value*      Write value to key
+
+  **var** *key* *-p*         Write value to key from clipboard
+
+  **var** *key* *value* *-r*   Rewrite value to key
+
+
+
+  `Deleting`:
+
+  **var** *key* *-d*   Delete key
+
+  **var** *-d* *-d*    Clear all keys
+
+
+
+  `Smart`:
+
+  **var** *!*                Write value from clipboard to a random key
+
+  **var** *key* *!*            Read to clipboard if key exists, else write from clipboard
+
+  **var** *key* *value* *!*      Rewrite value to key
+
+  **var** *key *value* *-p* *!*   Rewrite value to key from clipboard
 
