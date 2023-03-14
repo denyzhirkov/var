@@ -41,7 +41,7 @@ export const helpMessage = () => {
   ${APP} ${F("-db")} - Database path
 
   Reading:
-  ${APP} ${K("key")}   - Read value of key
+  ${APP} ${K("key")}    - Read value of key
   ${APP} ${K("key")} ${F("-c")} - Read value of key and copy to clipboard
 
   Writing:

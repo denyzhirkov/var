@@ -5,8 +5,7 @@ import {
   noItemsMessage, notFoundMessage, resultListLengthMessage,
   resultMessage, versionMessage, deletedAllMessage, errorMessage
 } from "./message/index.ts";
-import { Db } from "./storage/db.ts";
-import { Storage } from "./storage/index.ts";
+import { Db, Storage } from "./storage/index.ts";
 import { generateKey } from "./libs/key-id.ts";
 import { copy, paste } from './libs/clipboard.ts';
 
@@ -35,36 +34,36 @@ const flags = {
     return Deno.args.some((arg) => arg.startsWith('-'));
   },
   get isVersion() {
-    return Deno.args.includes('--version') || Deno.args.includes('-v');
+    return Deno.args.includes('-v') || Deno.args.includes('--version');
   },
   get isHelp() {
-    return Deno.args.includes('--help') || Deno.args.includes('-h');
+    return Deno.args.includes('-h') || Deno.args.includes('--help');
   },
   get isCopy() {
-    return Deno.args.includes('--copy') || Deno.args.includes('-c');
+    return Deno.args.includes('-c') || Deno.args.includes('--copy');
   },
   get isPaste() {
-    return Deno.args.includes('--paste') || Deno.args.includes('-p');
+    return Deno.args.includes('-p') || Deno.args.includes('--paste');
   },
   get isDelete() {
-    return Deno.args.includes('--delete') || Deno.args.includes('-d');
+    return Deno.args.includes('-d') || Deno.args.includes('--delete');
   },
   get isDoubleDelete() {
     return Deno.args.length == 2 && Deno.args.every((arg) => arg === '-d');
   },
   get isList() {
-    return Deno.args.includes('--list') || Deno.args.includes('-l');
+    return Deno.args.includes('-l') || Deno.args.includes('--list');
   },
   get isRewrite() {
-    return Deno.args.includes('--rewrite') || Deno.args.includes('-r');
+    return Deno.args.includes('-r') || Deno.args.includes('--rewrite');
+  },
+  get isDb() {
+    return Deno.args.length === 1 &&
+      (Deno.args.includes('-db') || Deno.args.includes('--database'));
   },
   get isSmart() {
     return Deno.args.includes('!');
   },
-  get isDb() {
-    return Deno.args.length === 1 &&
-      (Deno.args.includes('--database') || Deno.args.includes('-db'));
-  }
 };
 
 
@@ -135,6 +134,7 @@ if (Deno.args.length === 1) {
 
 /*
   var key -p/--paste => Write from clipboard
+  var key -c => Read to clipboard
   var key ! => Read to clipboard / Write from clipboard
   var key -d/--delete => Delete
   var key value => Save
@@ -146,6 +146,18 @@ if (Deno.args.length === 2) {
       const pValue = await paste();
       storage.saveKey(Deno.args[0], pValue);
       itemSavedMessage(Deno.args[0]);
+      Deno.exit(0);
+    }
+
+    // Read to clipboard
+    if (flags.isCopy) {
+      const item = storage.findByKey(Deno.args[0]);
+      if (item === null) {
+        notFoundMessage(Deno.args[0]);
+      } else {
+        await copy(item.value);
+        itemCopiedMessage(Deno.args[0]);
+      }
       Deno.exit(0);
     }
 
@@ -192,7 +204,6 @@ if (Deno.args.length === 2) {
       deletedAllMessage();
       Deno.exit(0);
     }
-
     helpMessage();
   }
   Deno.exit(0);
