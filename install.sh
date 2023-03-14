@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
 error_msg() {
-    echo "Error:" "$@" >&2
+    echo " 💀 $@" >&2
     exit 1
 }
 
 info_msg() {
-    echo "$@ "
+    echo "[✓] $@ "
 }
 
 success_msg() {
-    echo "$@ "
+    echo " 🔥 $@ "
 }
 
 if [[ ${OS:-} = Windows_NT ]]; then
@@ -62,23 +62,23 @@ fi
 # Download and unzip
 curl --fail --location --progress-bar --output "$exe.zip" "$var_uri" ||
     error_msg "Failed to download bun from \"$var_uri\""
-info_msg "[✓] Downloaded 'var' to $exe.zip"
+info_msg "Downloaded 'var' to $exe.zip"
 
 unzip -oqd "$bin_dir" "$exe.zip" ||
     error_msg "Failed to extract 'var'"
-info_msg "[✓] Extracted 'var' to $bin_dir/dist/$target"
+info_msg "Extracted 'var' to $bin_dir/dist/$target"
 
 mv "$bin_dir/dist/$target" "$exe" ||
     error_msg "Failed to move extracted bun to destination"
-info_msg "[✓] Moved 'var' to $exe"
+info_msg "Moved 'var' to $exe"
 
 rm -r "$bin_dir/dist" "$exe.zip" ||
     error_msg "Failed to remove temporary files"
-info_msg "[✓] Removed temporary files"
+info_msg "Removed temporary files"
 
 # Make the 'var' executable
 chmod +x $exe
-info_msg "[✓] Made 'var' executable"
+info_msg "Made 'var' executable"
 
 # bash
 if [[ $SHELL == *bash ]]; then
@@ -86,32 +86,32 @@ if [[ $SHELL == *bash ]]; then
         if [[ -f ~/.profile ]]; then
             echo "# var" >> ~/.profile
             echo "export PATH=\$PATH:$bin_dir" >> ~/.profile
-            echo "[✓] Updated ~/.profile"
+            info_msg "Updated ~/.profile"
         fi
         if [[ -f ~/.bashrc ]]; then
             echo "# var" >> ~/.bashrc
             echo "export PATH=\$PATH:$bin_dir" >> ~/.bashrc
-            echo "[✓] Updated ~/.bashrc"
+            info_msg "Updated ~/.bashrc"
         fi
         if [[ -f ~/.bash_profile ]]; then
             echo "# var" >> ~/.bash_profile
             echo "export PATH=\$PATH:$bin_dir" >> ~/.bash_profile
-            echo "[✓] Updated ~/.bash_profile"
+            info_msg "Updated ~/.bash_profile"
         fi
         if [[ -f ~/profile ]]; then
             echo "# var" >> ~/profile
             echo "export PATH=\$PATH:$bin_dir" >> ~/profile
-            echo "[✓] Updated ~/profile"
+            info_msg "Updated ~/profile"
         fi
         if [[ -f ~/bashrc ]]; then
             echo "# var" >> ~/bashrc
             echo "export PATH=\$PATH:$bin_dir" >> ~/bashrc
-            echo "[✓] Updated ~/bashrc"
+            info_msg "Updated ~/bashrc"
         fi
         if [[ -f ~/bash_profile ]]; then
             echo "# var" >> ~/bash_profile
             echo "export PATH=\$PATH:$bin_dir" >> ~/bash_profile
-            echo "[✓] Updated ~/bash_profile"
+            info_msg "Updated ~/bash_profile"
         fi
         success_msg "Successfully installed 'var' to $exe"
     fi
@@ -123,42 +123,42 @@ if [[ $SHELL == *zsh ]]; then
         if [[ -f ~/.zshrc ]]; then
             echo "# var" >> ~/.zshrc
             echo "export PATH=\$PATH:$bin_dir" >> ~/.zshrc
-            echo "[✓] Updated ~/.zshrc"
+            info_msg "Updated ~/.zshrc"
         fi
         if [[ -f ~/.zshenv ]]; then
             echo "# var" >> ~/.zshenv
             echo "export PATH=\$PATH:$bin_dir" >> ~/.zshenv
-            echo "[✓] Updated ~/.zshenv"
+            info_msg "Updated ~/.zshenv"
         fi
         if [[ -f ~/.zprofile ]]; then
             echo "# var" >> ~/.zprofile
             echo "export PATH=\$PATH:$bin_dir" >> ~/.zprofile
-            echo "[✓] Updated ~/.zprofile"
+            info_msg "Updated ~/.zprofile"
         fi
         if [[ -f ~/.zlogin ]]; then
             echo "# var" >> ~/.zlogin
             echo "export PATH=\$PATH:$bin_dir" >> ~/.zlogin
-            echo "[✓] Updated ~/.zlogin"
+            info_msg "Updated ~/.zlogin"
         fi
         if [[ -f ~/zshrc ]]; then
             echo "# var" >> ~/zshrc
             echo "export PATH=\$PATH:$bin_dir" >> ~/zshrc
-            echo "[✓] Updated ~/zshrc"
+            info_msg "Updated ~/zshrc"
         fi
         if [[ -f ~/zshenv ]]; then
             echo "# var" >> ~/zshenv
             echo "export PATH=\$PATH:$bin_dir" >> ~/zshenv
-            echo "[✓] Updated ~/zshenv"
+            info_msg "Updated ~/zshenv"
         fi
         if [[ -f ~/zprofile ]]; then
             echo "# var" >> ~/zprofile
             echo "export PATH=\$PATH:$bin_dir" >> ~/zprofile
-            echo "[✓] Updated ~/zprofile"
+            info_msg "Updated ~/zprofile"
         fi
         if [[ -f ~/zlogin ]]; then
             echo "# var" >> ~/zlogin
             echo "export PATH=\$PATH:$bin_dir" >> ~/zlogin
-            echo "[✓] Updated ~/zlogin"
+            info_msg "Updated ~/zlogin"
         fi
         success_msg "Successfully installed 'var' to $exe"
     fi
@@ -168,9 +168,9 @@ fi
 if [[ $SHELL == *fish ]]; then
     if ! command -v var &>/dev/null; then
         echo "set -gx PATH \$PATH $exe" >> ~/.config/fish/config.fish
-        success_msg "[✓] Successfully installed 'var' to $exe"
+        success_msg "Successfully installed 'var' to $exe"
     fi
 fi
 
-success_msg "\nRun 'var' or 'var -h' to get started\n"
+success_msg "Restart terminal and run 'var' or 'var -h' to get started"
 exit 0
