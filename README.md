@@ -56,6 +56,10 @@ var -h
 
   **var** *-db*   Database path
 
+  `Update`:
+
+  **var** *--self-update*    Update var
+
 
 
   `Reading`:

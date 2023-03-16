@@ -32,6 +32,7 @@ export const helpMessage = () => {
   ${F("-l, --list")}        List all keys with length
   ${F("-r, --rewrite")}     Rewrite value
   ${F("-db, --database")}   Database path
+  ${F("--self-update")}     Update var
   ${F("!")}                 Smart flag
 
   Help:
@@ -39,6 +40,9 @@ export const helpMessage = () => {
   ${APP} ${F("-l")}  - Show list of all keys
   ${APP} ${F("-v")}  - Show var version
   ${APP} ${F("-db")} - Database path
+
+  Update:
+  ${APP} ${F("--self-update")} - Update var
 
   Reading:
   ${APP} ${K("key")}    - Read value of key
@@ -116,3 +120,11 @@ export const itemRewrittenMessage = (key: string) => {
 export const versionMessage = (version: string) => {
   log(`${APP} v${version}`);
 };
+
+export const updatedMessage = () => {
+  log(`${APP} has been updated!`);
+}
+
+export const errorUpdateMessage = (err: string) => {
+  log(`${APP} updating ${chalkin.red('failed')}. ${err}`);
+}

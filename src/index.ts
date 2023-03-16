@@ -3,11 +3,12 @@ import {
   helpMessage, itemCopiedMessage, itemDeletedMessage,
   itemExistsMessage, itemRewrittenMessage, itemSavedMessage,
   noItemsMessage, notFoundMessage, resultListLengthMessage,
-  resultMessage, versionMessage, deletedAllMessage, errorMessage
+  resultMessage, versionMessage, deletedAllMessage, errorMessage, updatedMessage, errorUpdateMessage
 } from "./message/index.ts";
 import { Db, Storage } from "./storage/index.ts";
 import { generateKey } from "./libs/key-id.ts";
 import { copy, paste } from './libs/clipboard.ts';
+import { selfUpdate } from './libs/self-update.ts';
 
 globalThis.addEventListener('unhandledrejection', (e: PromiseRejectionEvent) => {
   errorMessage(e.reason);
@@ -24,6 +25,9 @@ const dbPath = `${execDir}/var.sqlite`;
 const storage = new Storage(new Db(dbPath));
 
 const flags = {
+  get isUnix() {
+    return Deno.build.os === 'darwin' || Deno.build.os === 'linux';
+  },
   get hasKey() {
     return Deno.args.length > 0 && Deno.args[0].startsWith('-') === false;
   },
@@ -64,6 +68,9 @@ const flags = {
   get isSmart() {
     return Deno.args.includes('!');
   },
+  get isSelfUpdate() {
+    return Deno.args.includes('--self-update');
+  }
 };
 
 
@@ -126,9 +133,20 @@ if (Deno.args.length === 1) {
     } else {
       resultMessage(item.value);
     }
-  } else {
-    helpMessage();
+    Deno.exit(0);
   }
+
+  // Self update (only for unix)
+  if (flags.isSelfUpdate && flags.isUnix) {
+    const [status, err] = await selfUpdate();
+    if (err) {
+      errorUpdateMessage(err);
+      Deno.exit(status);
+    } else {
+      updatedMessage();
+    }
+  }
+
   Deno.exit(0);
 }
 
