@@ -10,13 +10,14 @@
 
 ```
 
-### Terminal key-value storage application
+### CLI key-value storage application written on [Deno](https://deno.land)
+##
 ***
 
 
 Install
 ```
-curl -fsSL https://raw.githubusercontent.com/denyzhirkov/var/master/install.sh | bash
+curl -fsSL https://var.rocks/install | bash
 ```
 
 Use "var" or "var -h" for help
