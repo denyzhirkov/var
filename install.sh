@@ -67,6 +67,7 @@ if [[ $SHELL == *bash ]]; then
     if ! command -v var &>/dev/null; then
         for file in ~/.profile ~/.bashrc ~/.bash_profile ~/profile ~/bashrc ~/bash_profile; do
             [[ -f $file ]] && printf '# var\nexport PATH=$PATH:%s\n' "$bin_dir" >> "$file"
+            success_msg "Updated $file"
         done
         success_msg "Successfully installed 'var' to $exe"
     fi
@@ -76,6 +77,7 @@ if [[ $SHELL == *zsh ]]; then
     if ! command -v var &>/dev/null; then
         for file in ~/.zshrc ~/.zshenv ~/.zprofile ~/.zlogin ~/zshrc ~/zshenv ~/zprofile ~/zlogin; do
             [[ -f $file ]] && printf '# var\nexport PATH=$PATH:%s\n' "$bin_dir" >> "$file"
+            success_msg "Updated $file"
         done
         success_msg "Successfully installed 'var' to $exe"
     fi
@@ -84,6 +86,7 @@ fi
 if [[ $SHELL == *fish ]]; then
     if ! command -v var &>/dev/null; then
         printf 'set -gx PATH $PATH %s\n' "$exe" >> ~/.config/fish/config.fish
+        success_msg "Updated ~/.config/fish/config.fish"
         success_msg "Successfully installed 'var' to $exe"
     fi
 fi
