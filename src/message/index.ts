@@ -1,6 +1,8 @@
-import chalkin from "https://deno.land/x/chalkin/mod.ts";
-import { Item } from "../storage/index.ts";
-import { logoString } from "./assets.ts";
+import chalkin from 'https://deno.land/x/chalkin/mod.ts';
+
+import { Item } from '../storage/index.ts';
+import { logoString } from './assets.ts';
+
 
 const log = console.log;
 
@@ -55,7 +57,7 @@ export const helpMessage = () => {
 
   Deleting:
   ${APP} ${K("key")} ${F("-d")} - Delete key
-  ${APP} ${F("-d")} ${F("-d")}  - Clear all keys
+  ${APP} ${F("-d")} ${F("-d")}  - Delete all keys
 
   Smart:
   ${APP} ${F("!")}              - Write value from clipboard to a random key
