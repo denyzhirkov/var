@@ -24,6 +24,12 @@ success_msg() {
     printf ' 🔥 %s\n' "$@"
 }
 
+add_line_if_missing() {
+    local line="$1"
+    local file="$2"
+    grep -Fxq "$line" "$file" 2>/dev/null || echo "$line" >> "$file"
+}
+
 if [[ ${OS:-} = Windows_NT ]]; then
     error_msg "'var' is not supported on Windows"
 fi
@@ -66,8 +72,11 @@ info_msg "Made 'var' executable"
 if [[ $SHELL == *bash ]]; then
     if ! command -v var &>/dev/null; then
         for file in ~/.profile ~/.bashrc ~/.bash_profile ~/profile ~/bashrc ~/bash_profile; do
-            [[ -f $file ]] && printf '# var\nexport PATH=$PATH:%s\n' "$bin_dir" >> "$file"
-            success_msg "Updated $file"
+            if [[ -f $file ]]; then
+                add_line_if_missing '# var' "$file"
+                add_line_if_missing "export PATH=\$PATH:$bin_dir" "$file"
+                success_msg "Updated $file"
+            fi
         done
         success_msg "Successfully installed 'var' to $exe"
     fi
@@ -76,8 +85,11 @@ fi
 if [[ $SHELL == *zsh ]]; then
     if ! command -v var &>/dev/null; then
         for file in ~/.zshrc ~/.zshenv ~/.zprofile ~/.zlogin ~/zshrc ~/zshenv ~/zprofile ~/zlogin; do
-            [[ -f $file ]] && printf '# var\nexport PATH=$PATH:%s\n' "$bin_dir" >> "$file"
-            success_msg "Updated $file"
+            if [[ -f $file ]]; then
+                add_line_if_missing '# var' "$file"
+                add_line_if_missing "export PATH=\$PATH:$bin_dir" "$file"
+                success_msg "Updated $file"
+            fi
         done
         success_msg "Successfully installed 'var' to $exe"
     fi

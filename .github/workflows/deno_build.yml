@@ -12,13 +12,13 @@ jobs:
       contents: write
     strategy:
       matrix:
-        deno: ['1.31.1']
-        os: [macOS-latest]
+        deno: ["2.3.6"]
+        os: [ubuntu-latest, macos-latest]
 
     steps:
       - name: Setup repository
         uses: actions/checkout@v3
-        
+
       - name: Get tag
         run: |
           VERSION=$(awk '/version/{gsub(/("|",)/,"",$2);print $2}' package.json)
@@ -26,9 +26,9 @@ jobs:
         id: get_tag
 
       - name: Setup Deno
-        uses: denoland/setup-deno@9db7f66e8e16b5699a514448ce994936c63f0d54
+        uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.31
+          deno-version: ${{ matrix.deno }}
 
       - name: Build and zip
         run: npm run build:zip
