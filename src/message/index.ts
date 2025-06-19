@@ -18,7 +18,7 @@ const DELETED = chalkin.bold.strikethrough.gray("deleted");
 
 export const helpMessage = () => {
   log(
-  `${LOGO}
+    `${LOGO}
   Usage: ${APP} ${K("key")} [${V("value")} | ${F("flag")}]
 
   ${K("key")}      Key to store
@@ -63,7 +63,7 @@ export const helpMessage = () => {
   ${APP} ${F("!")}              - Write value from clipboard to a random key
   ${APP} ${K("key")} ${F("!")}          - Read to clipboard if key exists, else write from clipboard
   ${APP} ${K("key")} ${V("value")} ${F("!")}    - Rewrite value to key
-  ${APP} ${K("key")} ${V("value")} ${F("-p")} ${F("!")} - Rewrite value to key from clipboard
+  ${APP} ${K("key")} ${F("-p")} ${F("!")} - Rewrite value to key from clipboard
   `);
 };
 

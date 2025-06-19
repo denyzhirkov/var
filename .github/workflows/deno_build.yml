@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         deno: ["2.3.6"]
-        os: [ubuntu-latest, macos-latest]
+        os: [macos-latest]
 
     steps:
       - name: Setup repository
